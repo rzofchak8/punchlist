@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ room.name }} - Tasks</title>
+  </head>
+  <body>
+    <h1>{{ room.name }}</h1>
+    <p>Task Lists and Tasks</p>
+
+    <h2>Task Lists</h2>
+    <ul>
+      {% for list in tasklists %}
+      <li>Task List ID: {{ list.id }}</li>
+      {% endfor %}
+    </ul>
+
+    <h2>Tasks</h2>
+    <ul>
+      {% for task in tasks %}
+      <li>
+        {{ task.name }} - {{ task.status }} (Category: {{ task.category_id }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    <h3>Add New Task</h3>
+    <form method="POST" action="{{ url_for('add_task', room_id=room.id) }}">
+      <label for="description">Description:</label>
+      <input type="text" name="description" required /><br />
+
+      <label for="category_id">Category:</label>
+      <select name="category_id">
+        {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}</select
+      ><br />
+
+      <button type="submit">Add Task</button>
+    </form>
+
+    <a href="{{ url_for('view_rooms', house_id=room.house_id) }}"
+      >Back to rooms</a
+    >
+  </body>
+</html>

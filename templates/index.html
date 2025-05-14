@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Task App - Houses</title>
+  </head>
+  <body>
+    <h1>Houses</h1>
+    <ul>
+      {% for house in houses %}
+      <li>
+        <a href="{{ url_for('view_rooms', house_id=house.id) }}"
+          >{{ house.name }}</a
+        >
+        - {{ house.address }}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
