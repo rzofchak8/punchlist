@@ -1,5 +1,6 @@
 from flask import Flask
 from api import api_bp
+from views import views_bp
 from db import init_db, init_app as init_db_app
 
 def create_app():
@@ -11,6 +12,7 @@ def create_app():
     
     # Register the API blueprint
     app.register_blueprint(api_bp)
+    app.register_blueprint(views_bp)
     
     # Initialize database from schema.sql
     with app.app_context():

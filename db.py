@@ -15,14 +15,16 @@ def close_db(e=None):
         db.close()
 
 def init_db():
-    """Initialize the database from schema.sql file"""
-    db = get_db()
-    
-    # Read and execute the schema.sql file
-    with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
-    
-    db.commit()
+    """Initialize the database from schema.sql file if it doesn't exist yet"""
+    db_path = current_app.config['DATABASE']
+
+    if not os.path.exists(db_path):
+        db = get_db()
+
+        with current_app.open_resource('schema.sql') as f:
+            db.executescript(f.read().decode('utf8'))
+
+        db.commit()
 
 def init_app(app):
     """Register database functions with the Flask app"""
